@@ -16,7 +16,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
 
     if @post.save!
-      render :index, notice: "「#{@post.title}を投稿しました」"
+      redirect_to posts_path, notice: "「#{@post.title}を投稿しました」"
     else
       render :new, notice: "投稿に失敗しました"
     end
@@ -39,7 +39,7 @@ class PostsController < ApplicationController
   private
 
     def set_post
-      @post = Ondemand.find(params[:id])
+      @post = Post.find(params[:id])
     end
 
     def post_params
