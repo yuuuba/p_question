@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_13_030028) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_15_113345) do
   create_table "answers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "body"
     t.bigint "user_id", null: false
@@ -29,9 +29,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_030028) do
   create_table "questions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "body"
     t.bigint "user_id", null: false
-    t.bigint "answer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "answer_id"
     t.index ["answer_id"], name: "index_questions_on_answer_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
