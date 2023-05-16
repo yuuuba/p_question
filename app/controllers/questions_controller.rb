@@ -2,6 +2,11 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: %i[ show destroy ]
   before_action :authenticate_user!, only: [:new, :destroy]
 
+  def index
+    @post = Post.find(params[:post_id])
+    @questions = @post.questions
+  end
+
   def new
     @post = Post.find(params[:post_id])
     @question = Question.new
@@ -9,13 +14,17 @@ class QuestionsController < ApplicationController
   end
 
   def create
+    @post = Post.find(params[:post_id])
     @question = Question.new(question_params)
-
+    
     if @question.save!
-      redirect_to post_path
+      #FIX：posts#showのpathがわからない
+      redirect_to root_path
     else
       render :new
     end
+    
+    @post.update(question_id: @question.id)
   end
 
   def destroy
